@@ -1,1 +1,1 @@
-export { default as Notes } from './Notes/Notes';
+export { default as Home } from './Home/Home';

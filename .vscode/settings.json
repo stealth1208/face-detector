@@ -1,0 +1,7 @@
+{
+  "cSpell.words": [
+    "cloudinary"
+  ],
+  "tslint.alwaysShowRuleFailuresAsWarnings": false,
+  "tslint.packageManager": "yarn"
+}

@@ -1,8 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { Notes } from '@Pages';
 import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Home } from './pages';
 import './styles/_layout.scss';
 
 const theme = createMuiTheme({
@@ -17,13 +17,13 @@ const theme = createMuiTheme({
       'sans-serif',
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
+      '"Segoe UI Symbol"'
+    ].join(',')
+  }
 });
 
 function Index() {
-  return <h2>Home</h2>;
+  return <Home />;
 }
 
 function About() {
@@ -42,17 +42,12 @@ function AppRouter() {
           <nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/notes/">Notes</Link>
+                <Link to='/'>Home</Link>{' '}
               </li>
             </ul>
           </nav>
 
-          <Route path="/" exact={true} component={Index} />
-          <Route path="/notes/" component={Notes} />
-          <Route path="/users/" component={Users} />
+          <Route path='/' exact={true} component={Index} />
         </div>
       </ThemeProvider>
     </Router>
