@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
-    "cloudinary"
+    "cloudinary",
+    "persongroups"
   ],
   "tslint.alwaysShowRuleFailuresAsWarnings": false,
   "tslint.packageManager": "yarn"
