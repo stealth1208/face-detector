@@ -1,6 +1,7 @@
 export enum FACE {
   KEY = '98ba130e5b1e4831b3fcbd8120d0ed31',
-  BASE_URI = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0'
+  BASE_URI = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0',
+  PERSON_GROUP_ID = 'fea'
 }
 
 const cloudName = 'dwkngzetg';

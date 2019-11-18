@@ -19,7 +19,39 @@ const getPersonGroup = (groupName: string) => {
   return Request.get(`/persongroups/${groupName}`);
 };
 
+const createPerson = async (
+  name: string,
+  groupId: string = FACE.PERSON_GROUP_ID
+) => {
+  const res = await Request.post(`/persongroups/${groupId}/persons`, {
+    name
+  });
+  return res.data;
+};
+
+const getAllPerson = async (groupId: string = FACE.PERSON_GROUP_ID) => {
+  const res = await Request.get(`/persongroups/${groupId}/persons`);
+  return res.data;
+};
+
+const addFace = async (
+  faceUrl: string,
+  personId: string,
+  groupId: string = FACE.PERSON_GROUP_ID
+) => {
+  const res = await Request.post(
+    `/persongroups/${groupId}/persons/${personId}/persistedFaces`,
+    {
+      url: faceUrl
+    }
+  );
+  return res.data;
+};
+
 export const FaceApi = {
   createPersonGroup,
-  getPersonGroup
+  getPersonGroup,
+  createPerson,
+  getAllPerson,
+  addFace
 };

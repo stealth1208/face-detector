@@ -23,6 +23,8 @@ const cloudinaryOptions = {
 
 const Home: React.FunctionComponent<IHomeProps> = props => {
   const groupName = 'fea';
+  const [personName, setPersonName] = useState('');
+  const [imageUrls, setImageUrls] = useState([]);
 
   const openWidget = () => {
     cloudinary.openUploadWidget(
@@ -52,16 +54,46 @@ const Home: React.FunctionComponent<IHomeProps> = props => {
     const imageUrlList = res.data.resources.map((item: any) => {
       return 'https://res.cloudinary.com/dwkngzetg/' + item.public_id;
     });
+    setImageUrls((prev: string[]) => {
+      return imageUrlList;
+    });
     console.log('images', imageUrlList);
+  };
+
+  const createPerson = async () => {
+    const res = await FaceApi.createPerson(personName);
+    console.log('person name', res.personId);
+  };
+
+  const getAllPersonInGroup = async () => {
+    const res = await FaceApi.getAllPerson();
+    console.log('All person', res);
+  };
+
+  const addFace = async () => {
+    const currentPersonId = 'cf61cc5c-4240-4f98-8c0e-c5362f54ac3a';
+    imageUrls.forEach((url: string) => {
+      const res = FaceApi.addFace(url, currentPersonId);
+      console.log(`Adding ${url} to ${currentPersonId} success! ${res}`);
+    });
   };
 
   return (
     <>
-      <div className='home'>
+      <div className="home">
         <button onClick={openWidget}>Upload</button>
         <button onClick={createGroup}>Create person group</button>
         <button onClick={getGroup}>Get person group</button>
         <button onClick={getImage}>Get Image uploaded</button>
+        <div>
+          <input
+            type="text"
+            onChange={(e: any) => setPersonName(e.target.value)}
+          />
+          <button onClick={createPerson}>Create Person</button>
+        </div>
+        <button onClick={getAllPersonInGroup}>Get All Person In group</button>
+        <button onClick={addFace}>Add faces to Person</button>
       </div>
     </>
   );
