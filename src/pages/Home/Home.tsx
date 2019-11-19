@@ -78,6 +78,11 @@ const Home: React.FunctionComponent<IHomeProps> = props => {
     });
   };
 
+  const trainPerson = async () => {
+    const process = await FaceApi.trainPerson();
+    console.log('process', process);
+  };
+
   return (
     <>
       <div className="home">
@@ -94,6 +99,7 @@ const Home: React.FunctionComponent<IHomeProps> = props => {
         </div>
         <button onClick={getAllPersonInGroup}>Get All Person In group</button>
         <button onClick={addFace}>Add faces to Person</button>
+        <button onClick={trainPerson}>Train Person</button>
       </div>
     </>
   );
