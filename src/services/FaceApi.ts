@@ -53,11 +53,17 @@ const trainPerson = async (groupId: string = FACE.PERSON_GROUP_ID) => {
   return res.data;
 };
 
+const getTrainingStatus = async (groupId: string = FACE.PERSON_GROUP_ID) => {
+  const res = await Request.get(`persongroups/${groupId}/training`);
+  return res.data;
+};
+
 export const FaceApi = {
   createPersonGroup,
   getPersonGroup,
   createPerson,
   getAllPerson,
   addFace,
-  trainPerson
+  trainPerson,
+  getTrainingStatus
 };
