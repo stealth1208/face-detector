@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FaceApi, ImageApi } from '../../services';
-import { IMAGE } from '../../services/constants';
-import personList from '../../services/groupPerson.json';
+import { IMAGE, GROUP_NAME } from '../../services/constants';
 import './Detect.scss';
 
 interface IHomeProps {}
@@ -13,6 +12,7 @@ declare global {
 }
 
 let cloudinary = window.cloudinary;
+let Store = window.localStorage;
 
 cloudinary.setCloudName(IMAGE.CLOUD_NAME);
 const cloudinaryOptions = {
@@ -34,7 +34,7 @@ interface FaceInfo {
   };
 }
 
-interface Person {
+export interface Person {
   name: string;
   persistedFaceIds?: string[];
   personId: string;
@@ -44,6 +44,11 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
   const [url, setUrl] = useState('');
   const [faceInfo, setFaceInfo] = useState<FaceInfo[]>([]);
   const [matchPerson, setMatchPerson] = useState();
+
+  useEffect(() => {
+    setFaceInfo([]);
+    setMatchPerson({});
+  }, [url]);
 
   const openWidget = () => {
     cloudinary.openUploadWidget(
@@ -71,10 +76,11 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
     const images = res.data.resources.map((item: any) => {
       return 'https://res.cloudinary.com/dwkngzetg/' + item.public_id;
     });
+    // Get latest image
     setUrl((prev: string) => {
-      return (prev = images[images.length - 1]);
+      return (prev = images[0]);
     });
-    console.log('images', images[images.length - 1]);
+    console.log('images', images[0]);
   };
 
   const detect = async () => {
@@ -83,7 +89,7 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
     }
     try {
       const res = await FaceApi.detectFace(url);
-      setFaceInfo(faceInfo => (faceInfo = res));
+      setFaceInfo(res);
       console.log('Detect', res);
     } catch (error) {
       alert(`Error ${error}`);
@@ -91,9 +97,9 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
   };
 
   const findCandidate = useCallback(async () => {
-    const faceId = faceInfo[0].faceId;
+    const faceId = faceInfo.map(({ faceId }) => faceId);
     const res = await FaceApi.identityFace(faceId);
-    const candidates = res[0].candidates;
+    const candidates = res;
     const personId = candidates[0].personId;
     findPerson(personId);
     console.log('Candidate', res);
@@ -106,8 +112,11 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
   }, [faceInfo, findCandidate]);
 
   const findPerson = async (personId: string) => {
-    const result = personList.find(p => p.personId === personId);
-    console.log('result founded', result);
+    const personList = Store.getItem(GROUP_NAME);
+    const result =
+      personList &&
+      JSON.parse(personList).find((p: Person) => p.personId === personId);
+    console.log('Result founded', result);
     if (result) {
       setMatchPerson((matchPerson: Person) => {
         return {
@@ -120,15 +129,15 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
   };
 
   return (
-    <>
-      <div className="detect">
+    <div className="detect">
+      <>
         <button onClick={openUpload}>Open upload</button>
         <button onClick={getImage}>Get Image</button>
         <button onClick={detect}>Detect</button>
         <button onClick={findCandidate}>Identity</button>
-      </div>
-      <p className="result">
-        <img src={url} alt="" width="100%" height="100%" />
+      </>
+      <div className="result">
+        <img src={url} alt="" />
         {faceInfo &&
           faceInfo.map((face, key) => (
             <div
@@ -140,9 +149,13 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
                 width: face.faceRectangle.width,
                 height: face.faceRectangle.height
               }}
-            />
+            >
+              {matchPerson && (
+                <div className="rectangle__name">{matchPerson.name}</div>
+              )}
+            </div>
           ))}
-      </p>
+      </div>
       <ul>
         {faceInfo &&
           faceInfo.map(face =>
@@ -156,9 +169,8 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
               );
             })
           )}
-        {matchPerson && <li>{matchPerson.name}</li>}
       </ul>
-    </>
+    </div>
   );
 };
 

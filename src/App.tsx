@@ -26,10 +26,6 @@ function Index() {
   return <Home />;
 }
 
-function Users() {
-  return <h2>Users</h2>;
-}
-
 function AppRouter() {
   return (
     <Router>

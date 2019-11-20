@@ -70,14 +70,24 @@ const detectFace = async (imgUrl: string) => {
 };
 
 const identityFace = async (
-  faceId: string,
+  faceIds: string[],
   groupId: string = FACE.PERSON_GROUP_ID
 ) => {
   const res = await Request.post('identify', {
-    faceIds: [faceId],
+    faceIds: faceIds.splice(0, 10),
     personGroupId: groupId
   });
 
+  return res.data;
+};
+
+const deletePerson = async (
+  personId: string,
+  groupId: string = FACE.PERSON_GROUP_ID
+) => {
+  const res = await Request.delete(
+    `persongroups/${groupId}/persons/${personId}`
+  );
   return res.data;
 };
 
@@ -90,5 +100,6 @@ export const FaceApi = {
   trainPerson,
   getTrainingStatus,
   detectFace,
-  identityFace
+  identityFace,
+  deletePerson
 };
