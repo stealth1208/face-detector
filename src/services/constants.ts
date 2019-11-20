@@ -4,10 +4,12 @@ export enum FACE {
   PERSON_GROUP_ID = 'fea'
 }
 
-const cloudName = 'dwkngzetg';
 export enum IMAGE {
   CLOUD_NAME = 'dwkngzetg',
   BASE_URI = 'http://res.cloudinary.com/dwkngzetg',
   API_KEY = '457584564884954',
-  API_SECRET = '4A_4qgalJWBX5yvoZ65oYKwKDfw'
+  API_SECRET = '4A_4qgalJWBX5yvoZ65oYKwKDfw',
+  UPLOAD_PRESET = 'icsuoo4d',
+  UPLOAD_PRESET_NORMAL = 'preset_normal',
+  THEME = 'purple'
 }

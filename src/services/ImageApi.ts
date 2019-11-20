@@ -8,8 +8,8 @@ const Request = axios.create({
   }
 });
 
-const getImageList = (name: string) => {
-  return Request.get(`/image/list/${name}.json`);
+const getImageList = (tag: string) => {
+  return Request.get(`/image/list/${tag}.json`);
 };
 
 export const ImageApi = {

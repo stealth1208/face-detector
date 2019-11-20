@@ -14,7 +14,6 @@ declare global {
 let cloudinary = window.cloudinary;
 const cloud_name = 'dwkngzetg';
 cloudinary.setCloudName(cloud_name);
-
 const cloudinaryOptions = {
   uploadPreset: 'icsuoo4d',
   theme: 'purple'
@@ -49,8 +48,8 @@ const Home: React.FunctionComponent<IHomeProps> = props => {
   };
 
   const getImage = async () => {
-    const name = 'minh';
-    const res: any = await ImageApi.getImageList(name);
+    const tag = 'khang';
+    const res: any = await ImageApi.getImageList(tag);
     const imageUrlList = res.data.resources.map((item: any) => {
       return 'https://res.cloudinary.com/dwkngzetg/' + item.public_id;
     });
@@ -88,7 +87,7 @@ const Home: React.FunctionComponent<IHomeProps> = props => {
 
   const getTrainingStatus = async () => {
     const res = await FaceApi.getTrainingStatus();
-    console.log('Status', res.status);
+    console.log('Status', res);
   };
 
   return (
@@ -108,7 +107,7 @@ const Home: React.FunctionComponent<IHomeProps> = props => {
         <button onClick={getAllPersonInGroup}>Get All Person In group</button>
         <button onClick={addFace}>Add faces to Person</button>
         <button onClick={trainPerson}>Train Person</button>
-        <button onClick={getTrainingStatus}>Get Training status</button>
+        <button onClick={getTrainingStatus}>Get Training Status</button>
       </div>
     </>
   );

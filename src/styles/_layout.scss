@@ -12,6 +12,14 @@ html {
       // padding-left: 1rem;
       max-width: 1200px;
       margin: 0 auto;
+      font-size: 15px;
+
+      button {
+        display: flex;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
     }
   }
 

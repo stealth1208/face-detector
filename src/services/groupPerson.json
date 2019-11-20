@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Minh",
+    "persistedFaceIds": [
+      "0962add4-da1f-44be-b960-80e77ca522fc",
+      "23a2085e-58b7-4c0a-be63-22d91816cf51",
+      "27fac462-9154-4dd0-b9c5-7e6968bbf462",
+      "379fc98d-3da5-4a4e-bc0e-dc73dc196c2a",
+      "45f38df9-e989-41f6-a940-da4fdabf8ec4",
+      "4ff04704-5665-40cd-9872-8713bb870324",
+      "71a6a5b7-258a-45fd-a702-f308ab265701",
+      "76e4e24e-a032-4b30-8c16-a9d7f7968f9e",
+      "8270f294-3346-4b04-a577-f15fab114e09",
+      "8653d316-4545-48f5-9105-c1b0b32e7890",
+      "8ecd6ac5-3555-44f9-a270-7ea1259dfdb4",
+      "9660ae3b-486b-4146-bc09-1934d986e845",
+      "96de5eb0-2746-47ab-ba08-5c67720b7100",
+      "9eaae82d-b3ee-448b-b011-b9adff815bc5",
+      "babe8e10-dc6b-445c-b547-81963a415a23",
+      "d0fdf210-365e-4cd1-b1b4-caa2fe0e1114",
+      "d118ab20-5e56-48b9-a899-5516faccf81f",
+      "fd1a98d6-f7a3-4309-a2a4-ffe3571b3ece"
+    ],
+    "personId": "98715093-43b3-4b63-ad7e-cf6dfe2f2552"
+  },
+  {
+    "name": "Khang",
+    "persistedFaceIds": [
+      "1a12bc7f-c305-4c37-a17c-2c8e1c62416b",
+      "24d09b28-5574-4806-ac8f-623db4df39f9",
+      "2ba5125b-f4c9-4b6c-8057-e89861db9c54",
+      "38ff2716-3274-4d71-9683-64b0c3327d01",
+      "3e19e00e-2ce2-43ab-96ad-2cdfbd1da99b",
+      "400f54a5-0b6b-4ec6-8eb3-cc0c8425cf7b",
+      "50bc0eef-aa66-41d0-a4a3-81d3785847f7",
+      "6c3d7f31-10eb-42f1-9feb-642c4905cfc1",
+      "7b968910-d775-49b3-9c76-8908d92c1e17",
+      "9f0ee52d-0bc0-49e7-ba06-67008719de8e",
+      "a627408c-1b2f-4571-bb68-3324875d9e68",
+      "af89c220-620c-40bd-8df6-508737321f11",
+      "b90f7ab5-f190-44d9-81a5-8fe144957bcb",
+      "caf9eb7c-e5ef-4aad-825d-2772a08ba6ae",
+      "d149fbfd-b608-46fd-bf12-567ee0e2d902",
+      "daf06088-9a37-4d81-b586-ce8dc520418f",
+      "f1eef4c0-2ebd-4e08-81d2-c7e9421f5e86"
+    ],
+    "personId": "c12e6ff1-7cf3-4e8a-a433-515ead639d18"
+  }
+]

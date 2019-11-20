@@ -54,7 +54,30 @@ const trainPerson = async (groupId: string = FACE.PERSON_GROUP_ID) => {
 };
 
 const getTrainingStatus = async (groupId: string = FACE.PERSON_GROUP_ID) => {
-  const res = await Request.get(`persongroups/${groupId}/training`);
+  const res = await Request.get(`persongroups/${groupId}/train`);
+  return res.data;
+};
+
+const detectFace = async (imgUrl: string) => {
+  const res = await Request.post(
+    'detect?returnFaceId=true&returnFaceLandmark=trues&returnFaceAttributes=age,gender&returnRecognitionModel=true&detectionModel=detection_01',
+    {
+      url: imgUrl
+    }
+  );
+
+  return res.data;
+};
+
+const identityFace = async (
+  faceId: string,
+  groupId: string = FACE.PERSON_GROUP_ID
+) => {
+  const res = await Request.post('identify', {
+    faceIds: [faceId],
+    personGroupId: groupId
+  });
+
   return res.data;
 };
 
@@ -65,5 +88,7 @@ export const FaceApi = {
   getAllPerson,
   addFace,
   trainPerson,
-  getTrainingStatus
+  getTrainingStatus,
+  detectFace,
+  identityFace
 };
