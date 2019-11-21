@@ -47,7 +47,7 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
 
   useEffect(() => {
     setFaceInfo([]);
-    setMatchPerson({});
+    setMatchPerson([]);
   }, [url]);
 
   const openWidget = () => {
@@ -77,9 +77,7 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
       return 'https://res.cloudinary.com/dwkngzetg/' + item.public_id;
     });
     // Get latest image
-    setUrl((prev: string) => {
-      return (prev = images[0]);
-    });
+    setUrl(images[0]);
     console.log('images', images[0]);
   };
 
@@ -99,10 +97,10 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
   const findCandidate = useCallback(async () => {
     const faceId = faceInfo.map(({ faceId }) => faceId);
     const res = await FaceApi.identityFace(faceId);
-    const candidates = res;
-    const personId = candidates[0].personId;
-    findPerson(personId);
+    // const candidates = res.map(({ candidates }: any) => (candidates))
+    // const personId = candidates[0].personId;
     console.log('Candidate', res);
+    findPerson(res);
   }, [faceInfo]);
 
   useEffect(() => {
@@ -111,23 +109,33 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
     }
   }, [faceInfo, findCandidate]);
 
-  const findPerson = async (personId: string) => {
-    const personList = Store.getItem(GROUP_NAME);
-    const result =
-      personList &&
-      JSON.parse(personList).find((p: Person) => p.personId === personId);
+  const findPerson = async (candidates: any) => {
+    const list = Store.getItem(GROUP_NAME);
+    // const result =
+    //   personList &&
+    //   JSON.parse(personList).find((p: Person) => p.personId === personId);
+    const personList = list && JSON.parse(list);
+    const result = candidates.map((c: any) => {
+      const find = personList.find((p: Person) =>
+        c.candidates[0] ? p.personId === c.candidates[0].personId : {}
+      );
+      console.log('find', find);
+      if (find) {
+        return {
+          name: find.name,
+          faceId: c.faceId,
+          personId: find.personId
+        };
+      }
+      return {};
+    });
     console.log('Result founded', result);
     if (result) {
-      setMatchPerson((matchPerson: Person) => {
-        return {
-          ...matchPerson,
-          ...result
-        };
-      });
+      setMatchPerson(result);
     }
     return result || 'No person match';
   };
-
+  console.log('matchPerson', matchPerson);
   return (
     <div className="detect">
       <>
@@ -150,12 +158,27 @@ const Detect: React.FunctionComponent<IHomeProps> = props => {
                 height: face.faceRectangle.height
               }}
             >
-              {matchPerson && (
-                <div className="rectangle__name">{matchPerson.name}</div>
-              )}
+              {!!matchPerson.length &&
+                matchPerson.map((m: any, key: number) => {
+                  if (m.faceId === face.faceId) {
+                    return (
+                      <div
+                        style={{
+                          fontSize: `${face.faceRectangle.width / 3}px`
+                        }}
+                        key={key}
+                        className="rectangle__name"
+                      >
+                        {m.name}
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
             </div>
           ))}
       </div>
+      <div>{url}</div>
       <ul>
         {faceInfo &&
           faceInfo.map(face =>

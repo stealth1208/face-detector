@@ -4,11 +4,11 @@
 
     .rectangle {
       position: absolute;
-      border: 5px dashed #61f283;
+      border: 3px solid #61f283;
 
       &__name {
         font-size: 5rem;
-        color: brown;
+        color: crimson;
         left: 40px;
         bottom: -60px;
       }
